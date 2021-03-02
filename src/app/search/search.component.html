@@ -1,10 +1,9 @@
-<p>search works!</p>
 <span>
-    <input type="text" placeholder="Search...">
-    <button class="dropbtn">
-        <a>tag1</a>
-        <a>tag2</a>
-        <a>tag3</a>
-        <a>tag4</a>
-    </button>
+    <!-- <input (click)="this.typing=true" [(ngModel)]="this.search" type="text" placeholder="Search..."> -->
+    <input (focus)="this.typing=true" (unfocus)="this.typing=false" [(ngModel)]="this.search" type="text" placeholder="Search...">
+    <div *ngIf="this.typing">
+    <!-- <div *ngIf="showTags()"> -->
+        <button *ngFor="let t of filterTags()">{{ t }}</button>
+    </div>
+
 </span>

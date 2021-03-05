@@ -8,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  typing = false;
   search = '';
-  tags = [
+  selectedTags :string[] = [];
+  availableTags = [
     'vegitarian',
     'pasta',
     'slow cooker',
@@ -23,22 +23,29 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  showTags(): boolean {
-    if (this.search || this.typing==true) {
-      this.typing = true;
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   debug() {
-    console.log(this.filterTags());
+    console.log(this.search);
   }
 
   //return true if given tag fuzzily matches
   filterTags() {
-    return this.tags.filter(x => this.doesTagMatch(x));
+    // if (this.search == null) {
+    //   return;
+    // }
+    return this.availableTags.filter(x => this.doesTagMatch(x));
+  }
+
+  selectTag(t:string) {
+    this.search = '';
+    if (!this.selectedTags.includes(t))
+      this.selectedTags.push(t);
+  }
+
+  unselectTag(t: string) {
+    let index = this.selectedTags.indexOf(t);
+    let copyTags = this.selectedTags;
+    this.selectedTags = copyTags.slice(0,index).concat(copyTags.slice(index+ 1, copyTags.length));
+    // this.selectedTags.splice(index);
   }
 
   doesTagMatch(tag: string) {
@@ -46,11 +53,16 @@ export class SearchComponent implements OnInit {
     let chars = this.search.split('');
     for (let i = 0; i < chars.length; i++) {
       if (!tag.includes(chars[i])) {
-        console.log(chars[i]);
         return false;
       }
     }
     return true;
+  }
+
+  searchBlured(){
+    if (this.search == '') {
+      this.search = null;
+    }
   }
 
 }

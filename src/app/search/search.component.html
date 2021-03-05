@@ -1,9 +1,31 @@
-<span>
-    <!-- <input (click)="this.typing=true" [(ngModel)]="this.search" type="text" placeholder="Search..."> -->
-    <input (focus)="this.typing=true" (unfocus)="this.typing=false" [(ngModel)]="this.search" type="text" placeholder="Search...">
-    <div *ngIf="this.typing">
-    <!-- <div *ngIf="showTags()"> -->
-        <button *ngFor="let t of filterTags()">{{ t }}</button>
+<button (click)="debug()">debug</button>
+<p>p1</p><p style="flex: auto;">p2</p>
+<div class="container">
+    <input float="left" class="searchBar"/><app-tag-input></app-tag-input>
+</div>
+<div class="container">
+    <label for="tagSelect">Select Tag(s):</label>
+    <select name="tagSelect" class="searchBar">
+        <option value="{{t}}" style="width:100%;" role="combobox" *ngFor="let t of filterTags()">{{t}}</option>
+    </select>
+</div>
+<div class="container">
+    <!-- <div style="float: left; padding-right: 10px;" *ngFor="let t of this.selectedTags">
+        <button style="float:right;" (click)="unselectTag(t)"><b>x</b> {{ t }}</button>
+    </div> -->
+    <button (click)="unselectTag(t)" class="chip" *ngFor="let t of this.selectedTags"><b>x</b> {{t}}</button>
+    <br *ngIf="selectedTags">
+    <input
+    (focus)="search=''"
+    class="searchBar "
+    [(ngModel)]="search"
+    type="text"
+    placeholder="Search...">
+    <div class="suggestions" *ngIf="filterTags()">
+        <button
+        *ngFor="let t of filterTags()"
+        (click)="this.selectedTags.push(t)"
+        >{{ t }}</button>
     </div>
 
-</span>
+</div>

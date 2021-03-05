@@ -1,0 +1,6 @@
+<div class="tag-container">
+    <div class="tag" *ngFor="let t of tags">{{t}}
+        <i (click)="tags.remove(t)" class="material-icons">close</i>
+    </div>
+    <input [(ngModel)]="input" (keyup)="tagInputKeyUp($event)">
+</div>

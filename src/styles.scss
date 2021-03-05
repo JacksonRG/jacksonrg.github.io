@@ -1,5 +1,111 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root {
+  --text: #fff;
+  --bg: #333;
+  --acc: #555;
+  --acc2: #888;
+  --text-faint:#777;
+  --wall: #777;
+  --rad: 6px;
+  --chip-border:2px;
+  --chip-margin-left:-2px;
+}
+
+* {
+  color: var(--text);
+  // background: var(--bg);
+}
+
+body {
+    background-color: var(--wall);
+    color: var(--text)
+}
+
+select:focus {
+  background-color: var(--acc);
+  outline: solid 2px var(--acc2);
+}
+
+option:hover {
+  background-color: var(--acc2) !important;
+
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: var(--acc2);
+    // background-color: transparent;
+    border-radius: 6px;
+    width: 5px;
+}
+
+::-webkit-scrollbar {
+    background-color: transparent;
+    color: white;
+    width: 5px;
+}
+
+::placeholder{
+  color: var(--text-faint);
+}
+
+.container {
+  width: 60%;
+  margin: 100px auto;
+  background: var(--bg);
+  border-radius:6px;
+}
+
+// .container input, .searchBar {
+.searchBar {
+  outline:none;
+  background: var(--bg);
+  width: 100%;
+  border: 0;
+  font-size: 30px;
+  color: var(--text);
+  padding: 0;
+}
+
+button.chip {
+  float: left;
+  border: solid var(--chip-border) var(--acc);
+  // margin-right: var(--chip-margin-left);
+  margin-top: 4px;
+  margin-left: 4px;
+  margin-right: -6px;
+}
+
+.suggestions {
+  cursor: pointer;
+  max-height: 100px;
+  width: 100%;
+  overflow: auto;
+  border-bottom-left-radius: var(--rad);
+  border-bottom-right-radius: var(--rad);
+}
+
+button {
+  font-size: 20px;
+  /* color: #fff; */
+  color: var(--text);
+  outline:none;
+  border:none;
+  background-color: var(--bg);
+}
+
+.suggestions > button {
+  width: 100%;
+  // padding: 10px;
+  font-size: 15;
+  color: var(--text);
+  background-color: var(--bg);
+  border-top: 1px solid var(--acc);
+}
+
+button:hover {
+  background-color: var(--acc);
+}

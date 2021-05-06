@@ -16,15 +16,19 @@
   scene.add(camera);
 
   // This will draw what the camera sees onto the screen:
-  var renderer = new THREE.CanvasRenderer();
+  // var renderer = new THREE.CanvasRenderer();
+  var renderer = new THREE.WebGLRenderer();
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
   // ******** START CODING ON THE NEXT LINE ********
-  const torus = makeTorus();
+  torus = makeTorus();
   scene.add(torus);
+  ico = makeIcos();
+  scene.add(ico);
 
 
+  animate();
 
   // Now, show what the camera sees on the screen:
   renderer.setClearColorHex(0x333333,1);

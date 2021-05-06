@@ -1,15 +1,15 @@
 var animation_functions = [
   // () => {spinIcos();},
   // () => {spinTorus();},
-  // spinIcos,
-  // spinTorus,
-  eatTorus
+  spinIcos,
+  spinTorus,
+  // eatTorus
 ];
 
 function makeTorus() {
   torus_shape = new THREE.TorusGeometry(140,25,16, 10);
   torus_material = new THREE.MeshBasicMaterial( {
-    color: 0x3333ff,
+    color: 0x888888,
     wireframe:true,
   });
   return new THREE.Mesh(torus_shape, torus_material);
@@ -35,7 +35,7 @@ function spinTorus() {
 function makeIcos() {
   ico_shape = new THREE.IcosahedronGeometry(100,1);
   ico_material = new THREE.MeshBasicMaterial( {
-    color: 0xffffff,
+    color: 0xbbbbbb,
     wireframe: true,
   })
   return new THREE.Mesh(ico_shape, ico_material);
@@ -49,18 +49,18 @@ function spinIcos() {
 function animate() {
   requestAnimationFrame(animate);
 
-  scene.remove(torus);
-  torus_shape = new THREE.TorusGeometry(140,25,16, 10);
-  torus_material = new THREE.MeshBasicMaterial( {
-    color: 0x3333ff,
-    wireframe:true,
-  });
-  torus = new THREE.MeshBasicMaterial(torus_shape, torus_material);
-  scene.add(torus);
+  // scene.remove(torus);
+  // torus_shape = new THREE.TorusGeometry(140,25,16, 10);
+  // torus_material = new THREE.MeshBasicMaterial( {
+  //   color: 0x3333ff,
+  //   wireframe:true,
+  // });
+  // torus = new THREE.MeshBasicMaterial(torus_shape, torus_material);
+  // scene.add(torus);
 
-  // for (i = 0; i < animation_functions.length; i++ ) {
-  //   animation_functions[i]();
-  // }
+  for (i = 0; i < animation_functions.length; i++ ) {
+    animation_functions[i]();
+  }
   
   renderer.render(scene,camera);
 }

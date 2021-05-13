@@ -16,14 +16,16 @@ function makeTorus() {
 }
 
 function eatTorus() {
-  scene.remove(torus);
-  var torus_shape = new THREE.TorusGeometry(140,25,16, 10, date%(Math.PI*2));
-  var torus_material = new THREE.MeshBasicMaterial( {
+  // scene.remove(torus);
+  delete(torus_shape)
+  delete(torus_material)
+  torus_shape = new THREE.TorusGeometry(140,25,16, 10, Date.now());
+  torus_material = new THREE.MeshBasicMaterial( {
     color: 0x3333ff,
     wireframe:true,
   });
-  torus = THREE.Mesh(torus_shape, torus_material);
-  scene.add(torus);
+  // torus = THREE.Mesh(torus_shape, torus_material);
+  // scene.add(torus);
 }
 
 function spinTorus() {
@@ -49,14 +51,14 @@ function spinIcos() {
 function animate() {
   requestAnimationFrame(animate);
 
-  // scene.remove(torus);
-  // torus_shape = new THREE.TorusGeometry(140,25,16, 10);
-  // torus_material = new THREE.MeshBasicMaterial( {
-  //   color: 0x3333ff,
-  //   wireframe:true,
-  // });
-  // torus = new THREE.MeshBasicMaterial(torus_shape, torus_material);
-  // scene.add(torus);
+  scene.remove(torus);
+  torus_shape = new THREE.TorusGeometry(140,25,16, 10, Date.now() / 100);
+  torus_material = new THREE.MeshBasicMaterial( {
+    color: 0xbbbbbb,
+    wireframe:true,
+  });
+  torus = new THREE.Mesh(torus_shape, torus_material);
+  scene.add(torus);
 
   for (i = 0; i < animation_functions.length; i++ ) {
     animation_functions[i]();
@@ -64,3 +66,7 @@ function animate() {
   
   renderer.render(scene,camera);
 }
+
+document.addEventListener('click', (event) => {
+  scene.remove(torus);
+});

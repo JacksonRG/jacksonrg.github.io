@@ -1,9 +1,9 @@
 <body></body>
 <script src="http://gamingJS.com/Three.js"></script>
 <script src="http://gamingJS.com/ChromeFixes.js"></script>
+<script src="input.js"></script>
 <script>
   //GLobals
-  CODE_ALERT = true;
 
   // This is where stuff in our game will happen:
   var scene = new THREE.Scene();
@@ -20,34 +20,28 @@
   document.body.appendChild(renderer.domElement);
 
   // ******** START CODING ON THE NEXT LINE ********
-
-  document.addEventListener('keydown', (e)=>{
-    if (CODE_ALERT) {
-      alert(e.keyCode);
-      return;
-    }
-    //w: 87
-    //a: 65
-    //s: 83
-    //d: 68
-  });
-
   var cube = new THREE.CubeGeometry(100,5,30);
   // var cubeMat = new THREE.MeshNormalMaterial();
   var cubeMat = new THREE.MeshBasicMaterial({
     wireframe:true,
     color: 0xaaaaaa,
   });
-  var obj = new THREE.Mesh(cube,cubeMat);
+  var player = new THREE.Mesh(cube,cubeMat);
+  // obj.add(camera);
   var obj2 = new THREE.Mesh(cube,cubeMat);
   obj2.position.set(100,100,0);
   scene.add(obj2);
-  scene.add(obj);
+  scene.add(player);
 
   function animate() {
     requestAnimationFrame(animate);
-    // obj.rotation.y = Date.now()/600;
-    obj.rotation.x = Date.now()/600;
+    player.rotation.x = Date.now()/ 600;
+
+    for (k in KEYBINDS) {
+      if (k.pressed) {
+      }
+    }
+
     renderer.render(scene,camera);
   }
 

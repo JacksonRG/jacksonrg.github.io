@@ -1,11 +1,10 @@
-<body>
-</body>
-<!-- <script src="http://gamingJS.com/Three.js"></script> -->
-<!-- <script src="http://gamingJS.com/ChromeFixes.js"></script> -->
-<script src="ChromeFixes.js"></script>
-<script src="Three.js"></script>
-<script src="functions.js"></script>
+<body></body>
+<script src="http://gamingJS.com/Three.js"></script>
+<script src="http://gamingJS.com/ChromeFixes.js"></script>
 <script>
+  //GLobals
+  CODE_ALERT = true;
+
   // This is where stuff in our game will happen:
   var scene = new THREE.Scene();
 
@@ -16,21 +15,45 @@
   scene.add(camera);
 
   // This will draw what the camera sees onto the screen:
-  // var renderer = new THREE.CanvasRenderer();
   var renderer = new THREE.WebGLRenderer();
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
   // ******** START CODING ON THE NEXT LINE ********
-  torus = makeTorus();
-  scene.add(torus);
-  ico = makeIcos();
-  scene.add(ico);
+
+  document.addEventListener('keydown', (e)=>{
+    if (CODE_ALERT) {
+      alert(e.keyCode);
+      return;
+    }
+    //w: 87
+    //a: 65
+    //s: 83
+    //d: 68
+  });
+
+  var cube = new THREE.CubeGeometry(100,5,30);
+  // var cubeMat = new THREE.MeshNormalMaterial();
+  var cubeMat = new THREE.MeshBasicMaterial({
+    wireframe:true,
+    color: 0xaaaaaa,
+  });
+  var obj = new THREE.Mesh(cube,cubeMat);
+  var obj2 = new THREE.Mesh(cube,cubeMat);
+  obj2.position.set(100,100,0);
+  scene.add(obj2);
+  scene.add(obj);
+
+  function animate() {
+    requestAnimationFrame(animate);
+    // obj.rotation.y = Date.now()/600;
+    obj.rotation.x = Date.now()/600;
+    renderer.render(scene,camera);
+  }
 
 
-  animate();
 
   // Now, show what the camera sees on the screen:
-  renderer.setClearColorHex(0x333333,1);
   renderer.render(scene, camera);
+  animate();
 </script>

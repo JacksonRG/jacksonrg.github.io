@@ -1,17 +1,24 @@
 <body></body>
-<script src="http://gamingJS.com/Three.js"></script>
-<script src="http://gamingJS.com/ChromeFixes.js"></script>
+<!-- <script src="http://gamingJS.com/Three.js"></script>
+<script src="http://gamingJS.com/ChromeFixes.js"></script> -->
+<script src="THREE.js"></script>
+<script src="ChromeFixes.js"></script>
 <script src="input.js"></script>
+<style>
+  body {
+    background-color: darkslategrey;
+  }
+</style>
 <script>
-  //GLobals
-
+  inputInit();
   // This is where stuff in our game will happen:
   var scene = new THREE.Scene();
 
   // This is what sees the stuff:
   var aspect_ratio = window.innerWidth / window.innerHeight;
   var camera = new THREE.PerspectiveCamera(75, aspect_ratio, 1, 10000);
-  camera.position.z = 500;
+  camera.position.z = 300;
+  camera.position.y = 50;
   scene.add(camera);
 
   // This will draw what the camera sees onto the screen:
@@ -20,34 +27,60 @@
   document.body.appendChild(renderer.domElement);
 
   // ******** START CODING ON THE NEXT LINE ********
-  var cube = new THREE.CubeGeometry(100,5,30);
-  // var cubeMat = new THREE.MeshNormalMaterial();
-  var cubeMat = new THREE.MeshBasicMaterial({
+  var playerShape = new THREE.CubeGeometry(100,5,30);
+  // var playerMaterial = new THREE.MeshNormalMaterial();
+  var playerMaterial = new THREE.MeshBasicMaterial({
     wireframe:true,
-    color: 0xaaaaaa,
+    color: 0xaaffff,
   });
-  var player = new THREE.Mesh(cube,cubeMat);
-  // obj.add(camera);
-  var obj2 = new THREE.Mesh(cube,cubeMat);
-  obj2.position.set(100,100,0);
-  scene.add(obj2);
+  var player = new THREE.Mesh(playerShape,playerMaterial);
   scene.add(player);
+
+  var markers = [];
+  for (var i = 0; i < 10; i++) {
+    markers[i]= new THREE.Mesh(playerShape,playerMaterial);
+    markers[i].position.set(0, 80, -i*1000);
+    scene.add(markers[i]);
+  }
 
   function animate() {
     requestAnimationFrame(animate);
-    player.rotation.x = Date.now()/ 600;
 
-    for (k in KEYBINDS) {
-      if (k.pressed) {
-      }
-    }
 
     renderer.render(scene,camera);
   }
+  animate();
 
+  function gameStep() {
+    // scene.simulate();
+    // Update physics 60 times a second so that motion is smooth
 
+    for (var i = 0; i < 10; i++) {
+      markers[i].position.z += 10;
+      if (markers[i].position.z >= 1000){
+        markers[i].position.z = -10000;
+      }
+    }
+
+    for (let i = 0; i < KEYBINDS.length; i++) {
+      if (KEYBINDS[i].pressed == true) {
+        console.log(i);
+        KEYBINDS[i].func();
+      }
+    }
+    player.position.x = (
+      player.position.x - (Math.pow(player.rotation.z*5,3))
+    );
+    player.rotation.z = (
+      player.rotation.z + (0 - player.rotation.z)/100
+    );
+    if (Math.abs(player.rotation.z) < 0.001) {
+      player.rotation.z = 0;
+    }
+    setTimeout(gameStep, 1000/60);
+  }
+  gameStep()
 
   // Now, show what the camera sees on the screen:
   renderer.render(scene, camera);
-  animate();
 </script>

@@ -16,10 +16,16 @@ function inputInit() {
 
         }),
         /*'left':*/ new keybind(65,()=>{
+            // if (player.rotation.z >= 0 && player.rotation.z <= .1) {
+            //     player.rotation.z += 0.03;
+            // }
             player.rotation.z += 0.01;
             player.rotation.z = Math.min(player.rotation.z, .5);
         }),
         /*'right':*/ new keybind(68,()=>{
+            // if (player.rotation.z <= 0 && player.rotation.z >= -.1) {
+            //     player.rotation.z -= 0.03;
+            // }
             player.rotation.z -= 0.01;
             player.rotation.z = Math.max(player.rotation.z, -.5);
         }),

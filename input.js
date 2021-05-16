@@ -12,24 +12,24 @@ function inputInit() {
     //s: 83
     //d: 68
     KEYBINDS = [
-        /*'forward':*/ new keybind(87,()=>{
+        new keybind(87,()=>{
 
         }),
-        /*'left':*/ new keybind(65,()=>{
+        new keybind(65,()=>{
             // if (player.rotation.z >= 0 && player.rotation.z <= .1) {
             //     player.rotation.z += 0.03;
             // }
             player.rotation.z += 0.01;
             player.rotation.z = Math.min(player.rotation.z, .5);
         }),
-        /*'right':*/ new keybind(68,()=>{
+        new keybind(68,()=>{
             // if (player.rotation.z <= 0 && player.rotation.z >= -.1) {
             //     player.rotation.z -= 0.03;
             // }
             player.rotation.z -= 0.01;
             player.rotation.z = Math.max(player.rotation.z, -.5);
         }),
-        /*'back':*/ new keybind(83,()=>{
+        new keybind(83,()=>{
 
         }),
     ]
